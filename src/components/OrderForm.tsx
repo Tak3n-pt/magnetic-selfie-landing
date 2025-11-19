@@ -19,6 +19,19 @@ type OrderPayload = {
   totalPrice?: number;
 };
 
+type CompleteOrder = {
+  name: string;
+  phone: string;
+  wilaya: string;
+  commune: string;
+  deliveryType: "home" | "bureau";
+  color: "white" | "grey";
+  address: string;
+  shippingFee: number;
+  deliveryTime: string;
+  totalPrice: number;
+};
+
 // Shipping fees by wilaya - Bureau (Stop Desk Classique)
 const bureauFees: Record<string, { fee: number; deliveryTime: string }> = {
   // Group 1: 400 DA (Laghouat only - Lowest rate!)
@@ -257,7 +270,7 @@ export default function OrderForm() {
     address: ""
   });
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
-  const [successOrderDetails, setSuccessOrderDetails] = useState<OrderPayload | null>(null);
+  const [successOrderDetails, setSuccessOrderDetails] = useState<CompleteOrder | null>(null);
   const initiateCheckoutTracked = useRef(false);
 
   // Track InitiateCheckout when user starts filling form
@@ -294,10 +307,10 @@ export default function OrderForm() {
     setLoading(true);
     try {
       // Include shipping info in the order
-      const orderData = {
+      const orderData: CompleteOrder = {
         ...data,
         shippingFee,
-        deliveryTime: shippingInfo?.deliveryTime,
+        deliveryTime: shippingInfo?.deliveryTime || "24-48H",
         totalPrice,
       };
 
