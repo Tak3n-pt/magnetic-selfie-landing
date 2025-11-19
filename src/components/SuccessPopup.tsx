@@ -26,6 +26,13 @@ interface SuccessPopupProps {
 export default function SuccessPopup({ orderDetails, onClose }: SuccessPopupProps) {
   const [countdown, setCountdown] = useState(10);
 
+  // Auto-close when countdown reaches 0
+  useEffect(() => {
+    if (countdown === 0) {
+      onClose();
+    }
+  }, [countdown, onClose]);
+
   useEffect(() => {
     // Trigger confetti explosion
     const duration = 3000;
@@ -56,13 +63,7 @@ export default function SuccessPopup({ orderDetails, onClose }: SuccessPopupProp
 
     // Countdown timer
     const timer = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
-          onClose();
-          return 0;
-        }
-        return prev - 1;
-      });
+      setCountdown((prev) => prev > 0 ? prev - 1 : 0);
     }, 1000);
 
     // Keyboard listener
