@@ -4,15 +4,15 @@ import Section from "@/components/Section";
 
 const features = [
   { icon: Magnet, title: "تثبيت مغناطيسي ثابت", desc: "قاعدة MagSafe مع شريط أمان تحافظ على الهاتف ثابتاً حتى مع اللمس والحركة." },
-  { icon: Camera, title: "إضاءة ليد بـ3 درجات", desc: "موزّع إضاءة ناعم بثلاث درجات حرارة لونية لإضاءة متوازنة للوجه." },
+  { icon: Camera, title: "إضاءة LED بـ3 درجات", desc: "موزّع إضاءة ناعم بثلاث درجات حرارة لونية لإضاءة متوازنة للوجه." },
   { icon: MonitorUp, title: "دوران وميول مرن", desc: "مفصل كروي للتصوير أفقي أو عمودي وضبط زاوية الإضاءة بسهولة." },
   { icon: Smartphone, title: "متوافق مع كل الهواتف", desc: "يدعم MagSafe مباشرة أو مع لاصق معدني للهواتف غير المدعومة." },
 ];
 
 const featureShots = [
-  { src: "/images/hero/hero-2.jpg", alt: "المغناطيس يثبت الهاتف مع الإضاءة" },
-  { src: "/images/hero/hero-5.jpg", alt: "إضاءة ناعمة على الوجه" },
-  { src: "/images/hero/hero-6.jpg", alt: "تعديل الزاوية بسرعة" },
+  { src: "/images/feature-2.jpg", alt: "إضاءة ناعمة على الوجه" },
+  { src: "/images/feature-1.jpg", alt: "المغناطيس يثبت الهاتف مع الإضاءة" },
+  { src: "/images/feature-3.jpg", alt: "تعديل الزاوية بسرعة" },
 ];
 
 export default function Features() {

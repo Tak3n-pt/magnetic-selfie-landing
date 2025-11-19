@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# random images in root (keep only in public/)
+/*.jpg
+/*.jpeg
+/*.png
+/*.jfif

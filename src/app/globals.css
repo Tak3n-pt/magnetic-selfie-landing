@@ -1,26 +1,114 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0b0b10;
+  --foreground: #f5f7fb;
+  --accent: #6b8cff; /* electric blue */
+  --accent-2: #ff4fd8; /* magenta */
+  --muted: #9aa3b2;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-muted: var(--muted);
+  --font-sans: var(--font-tajawal);
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #171717;
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--background);
+  min-height: 100vh;
+  background: radial-gradient(1200px 600px at 80% -10%, rgba(107, 140, 255, .18), transparent 60%),
+              radial-gradient(900px 500px at -10% 10%, rgba(255, 79, 216, .14), transparent 60%),
+              var(--background);
+  background-attachment: fixed;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-tajawal), system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Naskh Arabic UI", sans-serif;
+  overflow-x: hidden;
+}
+
+/* Hero gallery subtle Ken Burns */
+@keyframes kb-pan {
+  0% { transform: scale(1.02) translateX(-6px); }
+  100% { transform: scale(1.08) translateX(6px); }
+}
+.kb-animate { animation: kb-pan var(--gallery-duration, 5s) linear forwards; will-change: transform; }
+
+.container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1.25rem; /* px-5 */
+  max-width: 1200px;
+}
+
+.glass {
+  background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  backdrop-filter: blur(10px);
+}
+
+.button-primary {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: white;
+}
+
+.button-primary:hover {
+  filter: brightness(1.05);
 }
