@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import Button from "@/components/Button";
 import toast, { Toaster } from "react-hot-toast";
 import * as fbq from "@/components/FacebookPixel";
+import SuccessPopup from "@/components/SuccessPopup";
 
 type OrderPayload = {
   name: string;
@@ -255,6 +256,8 @@ export default function OrderForm() {
     color: "white",
     address: ""
   });
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [successOrderDetails, setSuccessOrderDetails] = useState<OrderPayload | null>(null);
   const initiateCheckoutTracked = useRef(false);
 
   // Track InitiateCheckout when user starts filling form
@@ -317,7 +320,11 @@ export default function OrderForm() {
         color: data.color
       });
 
-      toast.success("تم استلام طلبك بنجاح، سنتواصل معك قريبًا");
+      // Show success popup with order details
+      setSuccessOrderDetails(orderData);
+      setShowSuccessPopup(true);
+
+      // Clear form after showing popup
       setData({ name: "", phone: "", wilaya: "", commune: "", deliveryType: "home", color: "white", address: "" });
     } catch (error) {
       console.error(error);
@@ -672,6 +679,17 @@ export default function OrderForm() {
           </Button>
         </div>
       </form>
+
+      {/* Success Popup */}
+      {showSuccessPopup && successOrderDetails && (
+        <SuccessPopup
+          orderDetails={successOrderDetails}
+          onClose={() => {
+            setShowSuccessPopup(false);
+            setSuccessOrderDetails(null);
+          }}
+        />
+      )}
     </div>
   );
 }
