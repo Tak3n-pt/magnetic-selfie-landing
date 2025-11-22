@@ -61,10 +61,11 @@
   --font-sans: var(--font-tajawal);
 }
 
+/* Force dark mode always - ignore device preferences */
 @media (prefers-color-scheme: light) {
   :root {
-    --background: #ffffff;
-    --foreground: #171717;
+    --background: #0b0b10;
+    --foreground: #f5f7fb;
   }
 }
 
