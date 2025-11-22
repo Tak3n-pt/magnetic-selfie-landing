@@ -2,7 +2,6 @@
 
 import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import { useState, useEffect } from "react";
-import Button from "@/components/Button";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -39,11 +38,7 @@ export default function Navbar() {
     mouseY.set(0);
   };
 
-  const navLinks = [
-    { href: "#features", label: "المزايا" },
-    { href: "#offer", label: "العرض" },
-    { href: "#faq", label: "الأسئلة" },
-  ];
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <>
@@ -119,32 +114,118 @@ export default function Navbar() {
               </motion.div>
             </motion.a>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8">
-              {navLinks.map((link, index) => (
-                <motion.a
-                  key={link.href}
-                  href={link.href}
-                  className="text-white/80 hover:text-white font-medium transition-colors relative group"
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * index, duration: 0.5 }}
-                >
-                  {link.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-cyan-400 group-hover:w-full transition-all duration-300" />
-                </motion.a>
-              ))}
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.3, duration: 0.5 }}
+            {/* Elite Order Button */}
+            <motion.div
+              className="hidden md:block"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <motion.a
+                href="#order"
+                className="relative group block"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <Button as="a" href="#order" className="shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 transition-shadow">
-                  اطلب الآن
-                </Button>
-              </motion.div>
-            </div>
+                {/* Animated glow effect */}
+                <motion.div
+                  className="absolute -inset-1 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 rounded-full blur-lg opacity-60"
+                  animate={{
+                    opacity: isHovered ? 0.8 : 0.6,
+                    scale: isHovered ? 1.05 : 1,
+                  }}
+                  transition={{ duration: 0.3 }}
+                />
+
+                {/* Main button */}
+                <div className="relative px-8 py-4 bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600 rounded-full overflow-hidden">
+                  {/* Animated shine effect */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                    animate={{
+                      x: isHovered ? ["-100%", "200%"] : "-100%",
+                    }}
+                    transition={{
+                      duration: 0.6,
+                      ease: "easeInOut",
+                    }}
+                  />
+
+                  {/* Button content */}
+                  <div className="relative flex items-center gap-3">
+                    {/* Pulse dot */}
+                    <motion.span
+                      className="w-2.5 h-2.5 bg-red-500 rounded-full"
+                      animate={{
+                        scale: [1, 1.3, 1],
+                        opacity: [1, 0.7, 1],
+                      }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    />
+
+                    {/* Text */}
+                    <span className="font-bold text-lg text-white whitespace-nowrap tracking-wide">
+                      اطلب الآن قبل نفاذ الكمية
+                    </span>
+
+                    {/* Arrow icon */}
+                    <motion.svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-5 h-5 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      animate={{
+                        x: isHovered ? [0, 5, 0] : 0,
+                      }}
+                      transition={{
+                        duration: 0.6,
+                        repeat: isHovered ? Infinity : 0,
+                        ease: "easeInOut",
+                      }}
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </motion.svg>
+                  </div>
+
+                  {/* Bottom border shine */}
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent" />
+                </div>
+
+                {/* Floating particles effect */}
+                <motion.div
+                  className="absolute -top-1 right-4 w-1 h-1 bg-cyan-400 rounded-full"
+                  animate={{
+                    y: [-4, -8, -4],
+                    opacity: [0, 1, 0],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+                <motion.div
+                  className="absolute -bottom-1 left-8 w-1 h-1 bg-blue-400 rounded-full"
+                  animate={{
+                    y: [4, 8, 4],
+                    opacity: [0, 1, 0],
+                  }}
+                  transition={{
+                    duration: 2,
+                    delay: 0.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+              </motion.a>
+            </motion.div>
 
             {/* Mobile Menu Button */}
             <button
@@ -190,7 +271,7 @@ export default function Navbar() {
           animate={{ opacity: isMobileMenuOpen ? 1 : 0 }}
         />
 
-        {/* Menu Content */}
+        {/* Menu Content - Mobile Elite Button */}
         <motion.div
           className="absolute top-20 left-4 right-4 glass rounded-3xl border border-white/20 p-6 shadow-2xl"
           initial={{ opacity: 0, y: -20, scale: 0.95 }}
@@ -201,41 +282,80 @@ export default function Navbar() {
           }}
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="space-y-4">
-            {navLinks.map((link, index) => (
-              <motion.a
-                key={link.href}
-                href={link.href}
-                className="block text-white text-lg font-medium hover:text-blue-400 transition-colors py-2 border-b border-white/10 last:border-0"
-                onClick={() => setIsMobileMenuOpen(false)}
-                initial={{ opacity: 0, x: -20 }}
+          <motion.a
+            href="#order"
+            className="relative group block"
+            onClick={() => setIsMobileMenuOpen(false)}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{
+              opacity: isMobileMenuOpen ? 1 : 0,
+              scale: isMobileMenuOpen ? 1 : 0.9,
+            }}
+            transition={{ delay: 0.1, duration: 0.3 }}
+          >
+            {/* Animated glow effect */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 rounded-full blur-lg opacity-70" />
+
+            {/* Main button */}
+            <div className="relative px-6 py-4 bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600 rounded-full overflow-hidden">
+              {/* Animated shine effect */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
                 animate={{
-                  opacity: isMobileMenuOpen ? 1 : 0,
-                  x: isMobileMenuOpen ? 0 : -20,
+                  x: ["-100%", "200%"],
                 }}
-                transition={{ delay: 0.1 * index, duration: 0.3 }}
-              >
-                {link.label}
-              </motion.a>
-            ))}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{
-                opacity: isMobileMenuOpen ? 1 : 0,
-                y: isMobileMenuOpen ? 0 : 20,
-              }}
-              transition={{ delay: 0.3, duration: 0.3 }}
-            >
-              <Button
-                as="a"
-                href="#order"
-                className="w-full shadow-lg shadow-blue-500/20"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                اطلب الآن
-              </Button>
-            </motion.div>
-          </div>
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+              />
+
+              {/* Button content */}
+              <div className="relative flex items-center justify-center gap-3">
+                {/* Pulse dot */}
+                <motion.span
+                  className="w-2.5 h-2.5 bg-red-500 rounded-full"
+                  animate={{
+                    scale: [1, 1.3, 1],
+                    opacity: [1, 0.7, 1],
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+
+                {/* Text */}
+                <span className="font-bold text-base text-white text-center">
+                  اطلب الآن قبل نفاذ الكمية
+                </span>
+
+                {/* Arrow icon */}
+                <motion.svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-5 h-5 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  animate={{
+                    x: [0, 5, 0],
+                  }}
+                  transition={{
+                    duration: 1,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </motion.svg>
+              </div>
+
+              {/* Bottom border shine */}
+              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent" />
+            </div>
+          </motion.a>
         </motion.div>
       </motion.div>
     </>
