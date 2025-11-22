@@ -80,7 +80,13 @@ body {
   background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-tajawal), system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Naskh Arabic UI", sans-serif;
-  overflow-x: hidden;
+}
+
+/* Prevent horizontal scroll on mobile only */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
 }
 
 /* Hero gallery subtle Ken Burns */
